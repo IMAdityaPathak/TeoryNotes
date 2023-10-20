@@ -1,42 +1,41 @@
-OP 12 Annotations of Spring Boot Framework
-
+12 Annotations of Spring Boot Framework
+=======================================
 
 1. @SpringBootApplication
 
 @EnableAutoConfiguration + @ComponentScan + @Configuration
-
-2. @Configration(we can use this configuration on any class , in that that class we will write the methods which will return beans ,(when we use @configuration on any class that class becomes configration class that means this class is a source of bean definition and its one of the essential annotation , it wyll have many methods and it returns beans, )
+-----------------------------------------------------------
+2. @Configration(we can use this configuration on any class , in that that class we will write the methods which will return beans ,
+(when we use @configuration on any class that class becomes configuration class which means this class is a source of bean definition 
+and it is one of the essential annotations, it will have many methods and it returns beans, )
 )
 
 
-@Configration annotation will be used with the Class , this class will have one or more methods which will return beans (methods marked with @Bean)
+@Configration annotation will be used with the Class, this class will have one or more methods that will return beans (methods marked with @Bean)
 
-@Bean annotation we use inside the class marked with @Configuration class,  to tell that this method will return bean that will be managed by the container
+@Bean annotation we use inside the class marked with @Configuration class,  to tell that this method will return a bean that will be managed by the container
 
-no need to call this method marked with bean to create the object object will be created by itself, we can just use the object
+no need to call this method marked with a bean to create the object object will be created by itself, we can just use the object
 
 3. @Bean
-4. @Autowired ( it will autowire deendency autometocally, container chcek if it has any object of student type then it injects or thows exception
+4. @Autowired ( it will auto-wire dependency automatically, container check if it has any object of student type then it injects or throws exception
 here @Autowired 
 	private	Student student;
 )
-autowire we can do on property, setter , constructor also
+auto wire we can do on property, setter, constructor also
 
 
 
-5. @Component - instead of declaring a @bean over a method to craete a clas object, we can use @Component over a class 
-, it is a compenent conatiner will manage its lifecycle,
+5. @Component - instead of declaring a @bean over a method to create a class object, we can use @Component over a class 
+, it is a component container that will manage its lifecycle,
 => 
-component annotation when we use with a class that class becomes spring component ad spring conatinedr takes care of it, its object managed by spring container
+component annotation when we use it with a class that class becomes a spring component and spring container takes care of it, its object managed by the spring container
 
 
-but inside component it has 3 annotations 
-@Controller -> it is comonent but it is specific to controller=it is component but it will take care of MVC controller also(presentation layer to male mvc contoler)
+but inside the component, it has 3 annotations 
+@Controller -> it is component but it is specific to controller=it is component but it will take care of MVC controller also(presentation layer to male mvc controller)
 
-it is contoller but also a component
- 
-
-
+it is controller but also a component
 
 pure function
 higher order function
