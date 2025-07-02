@@ -1,0 +1,208 @@
+The Builder Design Pattern is a creational pattern used to construct complex objects step by step. It separates the construction of a complex object from its representation, allowing the same construction process to create different representations.
+Here’s a simple example in Java:
+🏗️ Builder Design Pattern Example
+Let's say we want to build a Computer object with optional components.
+
+1. Product Class
+
+public class Computer {
+    // Required parameters
+    private String CPU;
+    private String RAM;
+    // Optional parameters
+    private boolean isGraphicsCardEnabled;
+    private boolean isBluetoothEnabled;
+
+      private Computer(Builder builder) {
+          this.CPU = builder.CPU;
+          this.RAM = builder.RAM;
+          this.isGraphicsCardEnabled = builder.isGraphicsCardEnabled;
+          this.isBluetoothEnabled = builder.isBluetoothEnabled;
+      }
+
+      public static class Builder {
+          private String CPU;
+          private String RAM;
+          private boolean isGraphicsCardEnabled;
+          private boolean isBluetoothEnabled;
+          public Builder(String CPU, String RAM) {
+              this.CPU = CPU;
+              this.RAM = RAM;
+          }
+
+        public Builder setGraphicsCardEnabled(boolean isGraphicsCardEnabled) {
+            this.isGraphicsCardEnabled = isGraphicsCardEnabled;
+            return this;
+        }
+        public Builder setBluetoothEnabled(boolean isBluetoothEnabled) {
+            this.isBluetoothEnabled = isBluetoothEnabled;
+            return this;
+        }
+        public Computer build() {
+            return new Computer(this);
+        }
+    }
+
+    @Override
+    public String toString() {
+        return "Computer [CPU=" + CPU + ", RAM=" + RAM +
+               ", GraphicsCard=" + isGraphicsCardEnabled +
+               ", Bluetooth=" + isBluetoothEnabled + "]";
+    }
+}
+public class BuilderPatternDemo {
+    public static void main(String[] args) {
+        Computer computer = new Computer.Builder("Intel i7", "16GB")
+                                .setGraphicsCardEnabled(true)
+                                .setBluetoothEnabled(true)
+                                .build();
+        System.out.println(computer);
+    }
+}
+
+✅ Output
+Computer [CPU=Intel i7, RAM=16GB, GraphicsCard=true, Bluetooth=true]
+The Factory Design Pattern is a creational pattern used to create objects without specifying the exact class of object that will be created. It provides a way to delegate the instantiation logic to subclasses or factory methods.
+________________________________________
+🏭 Factory Design Pattern in Java
+Let’s walk through a simple example: creating different types of Shape objects.
+________________________________________
+1. Product Interface
+public interface Shape {
+    void draw();
+}
+public class Circle implements Shape {
+    public void draw() {
+        System.out.println("Drawing a Circle");
+    }
+}
+public class Rectangle implements Shape {
+    public void draw() {
+        System.out.println("Drawing a Rectangle");
+    }
+}
+public class Square implements Shape {
+    public void draw() {
+        System.out.println("Drawing a Square");
+    }
+}
+public class ShapeFactory {
+    public Shape getShape(String shapeType) {
+        if (shapeType == null) {
+            return null;
+        }
+        if (shapeType.equalsIgnoreCase("CIRCLE")) {
+            return new Circle();
+        } else if (shapeType.equalsIgnoreCase("RECTANGLE")) {
+            return new Rectangle();
+        } else if (shapeType.equalsIgnoreCase("SQUARE")) {
+            return new Square();
+        }
+        return null;
+    }
+}
+public class FactoryPatternDemo {
+    public static void main(String[] args) {
+        ShapeFactory ShapeFactory();
+        Shape shape1 = shapeFactory.getShape("CIRCLE");
+        shape1.draw();
+        Shape shape2 = shapeFactory.getShape("RECTANGLE");
+        shape2.draw();
+        Shape shape3 = shapeFactory.getShape("SQUARE");
+        shape3.draw();
+    }
+}
+Output
+Drawing a Circle
+Drawing a Rectangle
+Drawing a Squar
+The Abstract Factory Design Pattern is a creational pattern that provides an interface for creating families of related or dependent objects without specifying
+their concrete classes.
+It’s like a super factory that creates other factories.
+________________________________________
+🏭 Abstract Factory Pattern in Java
+Let’s build an example where we create UI components for different operating systems: Windows and Mac.
+1. Product Interfaces
+public interface Button {
+    void paint();
+}
+public interface Checkbox {
+    void paint();
+}
+2. Concrete Products
+public class WindowsButton implements Button {
+    public void paint() {
+        System.out.println("Rendering a Windows Button");
+    }
+}
+public class MacButton implements Button {
+    public void paint() {
+        System.out.println("Rendering a Mac Button");
+    }
+}
+public class WindowsCheckbox implements Checkbox {
+    public void paint() {
+        System.out.println("Rendering a Windows Checkbox");
+    }
+}
+public class MacCheckbox implements Checkbox {
+    public void paint() {
+        System.out.println("Rendering a Mac Checkbox");
+    }
+}
+3. Abstract Factory
+public interface GUIFactory {
+    Button createButton();
+    Checkbox createCheckbox();
+}
+4. Concrete Factories
+public class WindowsFactory implements GUIFactory {
+    public Button createButton() {
+        return new WindowsButton();
+    }
+    public Checkbox createCheckbox() {
+        return new WindowsCheckbox();
+    }
+}
+public class MacFactory implements GUIFactory {
+    public Button createButton() {
+        return new MacButton();
+    }
+    public Checkbox createCheckbox() {
+        return new MacCheckbox();
+    }
+}
+5. Client Code
+public class Application {
+    private Button button;
+    private Checkbox checkbox;
+    public Application(GUIFactory factory) {
+        button = factory.createButton();
+        checkbox = factory.createCheckbox();
+    }
+    public void render() {
+        button.paint();
+        checkbox.paint();
+    }
+}
+6. Demo / Main Class
+public class AbstractFactoryDemo {
+    public static void main(String[] args) {
+        GUIFactory factory;
+        String osName = System.getProperty("os.name").toLowerCase();
+        if (osName.contains("mac")) {
+            factory = new MacFactory();
+        } else {
+            factory = new WindowsFactory();
+        }
+        Application app = new Application(factory);
+        app.render();
+    }
+}
+✅ Output (depends on OS)
+Rendering a Windows Button
+Rendering a Windows Checkbox
+or
+Rendering a Mac Button
+Rendering a Mac Checkbox
+
